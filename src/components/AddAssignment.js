@@ -26,6 +26,7 @@ class AddAssignment extends React.Component {
         const { selectedDate, assignmentName, courseId } = this.state;
         const month = parseInt(selectedDate.getMonth()) + 1;
         const formattedDate = selectedDate.getFullYear() + "-" + month + "-" + selectedDate.getDate();
+        //test add assignment
         console.log("Assignment.addAssignments");
         const token = Cookies.get('XSRF-TOKEN');
         fetch(`${SERVER_URL}/assignment/${courseId}`, {
