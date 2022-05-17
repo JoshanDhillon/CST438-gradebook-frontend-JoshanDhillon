@@ -50,6 +50,7 @@ class Assignment extends React.Component {
   }
   
   render() {
+     const { assignments, selected } = this.state;
      const columns = [
       {
         field: 'assignmentName',
@@ -82,6 +83,10 @@ class Assignment extends React.Component {
             <Button component={Link} to={{pathname:'/gradebook',   assignment: assignmentSelected }} 
                     variant="outlined" color="primary" disabled={this.state.assignments.length===0}  style={{margin: 10}}>
               Grade
+            </Button>
+            <Button component={Link} to={{pathname:'/add/assignment',  courseId: assignments.length > 0 ? assignments[selected].courseId : undefined}} 
+                    variant="outlined" color="secondary" disabled={this.state.assignments.length===0}  style={{margin: 10}}>
+              Add
             </Button>
             <ToastContainer autoClose={1500} /> 
           </div>
