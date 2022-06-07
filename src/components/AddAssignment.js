@@ -21,12 +21,12 @@ class AddAssignment extends React.Component {
         super(props);
         this.state = { assignmentName: "", open: false, selectedDate: new Date(), courseId: props.location.courseId };
     };
-    
+
     addAssignment = () => {
         const { selectedDate, assignmentName, courseId } = this.state;
-        const month = parseInt(selectedDate.getMonth()) + 1;
-        const formattedDate = selectedDate.getFullYear() + "-" + month + "-" + selectedDate.getDate();
-        //test add assignment
+        // const month = parseInt(selectedDate.getMonth()) + 1;
+        // const formattedDate = selectedDate.getFullYear() + "-" + month + "-" + selectedDate.getDate();
+        const formattedDate = selectedDate;
         console.log("Assignment.addAssignments");
         const token = Cookies.get('XSRF-TOKEN');
         fetch(`${SERVER_URL}/assignment/${courseId}`, {
@@ -35,7 +35,8 @@ class AddAssignment extends React.Component {
             body: JSON.stringify({
                 "assignmentName": assignmentName,
                 "dueDate": formattedDate
-            })
+            }),
+            credentials: 'include'
         })
             .then((responseData) => {
                 //console.log(responseData);
@@ -65,9 +66,15 @@ class AddAssignment extends React.Component {
                 <h4>Add Assignment </h4>
                 <FormControl>
                     <InputLabel htmlFor="assignmentName">Assignment Name</InputLabel>
-                    <Input id="assignmentName" aria-describedby="assignment-name" onChange={(e) => this.setState({ assignmentName: e.target.value })} />
+                    <Input id="assignmentName" name="assignmentName" aria-describedby="assignmentName" onChange={(e) => this.setState({ assignmentName: e.target.value })} />
+                </FormControl>
+                <br />
+                <br />
+                <FormControl>
+                    <InputLabel htmlFor="dueDate">Due Date (YYYY-MM-DD)</InputLabel>
+                    <Input id="dueDate" name="dueDate" aria-describedby="dueDate" onChange={(e) => this.setState({ selectedDate: e.target.value })} />
                     <br />
-                    <FormLabel>Due Date</FormLabel>
+                    {/* <FormLabel>Due Date</FormLabel>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
                             views={['day', 'month', 'year']}
@@ -77,7 +84,7 @@ class AddAssignment extends React.Component {
                             }}
                             renderInput={(params) => <TextField {...params} helperText={null} />}
                         />
-                    </LocalizationProvider>
+                    </LocalizationProvider> */}
                     <Button color="primary" variant="outlined"
                         disabled={(assignmentName && courseId) ? false : true} style={{ margin: 10 }} onClick={() => this.addAssignment()}>
                         Add

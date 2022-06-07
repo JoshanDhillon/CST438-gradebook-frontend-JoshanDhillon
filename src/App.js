@@ -6,6 +6,7 @@ import Gradebook from './components/Gradebook';
 import Assignment from './components/Assignment';
 import {BrowserRouter, Switch,  Route} from 'react-router-dom';
 import AddAssignment from './components/AddAssignment';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       </AppBar>
       <BrowserRouter>
        <Switch>
-        <Route exact path='/' component={Assignment} />
+        <Route exact path='/' component={Login} />
+        <Route exact path='/assignment' component={Assignment} />
         <Route path='/gradebook' component={Gradebook} />
         <Route exact path='/add/assignment' component={AddAssignment} />
        </Switch>
